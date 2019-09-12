@@ -1,0 +1,55 @@
+{
+  "name": "backend",
+  "description": "API",
+  "repository": "https://github.com/AdamHacault/backend",
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@google-cloud/firestore": "^0.21.0",
+    "bcrypt": "^3.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "moment": "^2.24.0",
+    "pino": "^5.11.1",
+    "pino-pretty": "^2.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-prettier": "^4.0.0",
+    "husky": "^1.3.1",
+    "jest": "^24.0.0",
+    "lint-staged": "^8.1.0",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.16.1",
+    "supertest": "^3.4.2"
+  },
+  "scripts": {
+    "lint": "eslint ./ --fix",
+    "start": "nodemon start.js",
+    "test": "jest --coverage",
+    "production": "node start.js",
+    "docker:install": "docker-compose run --rm api npm install",
+    "docker:start": "docker-compose run --rm --service-ports --name api api npm start",
+    "docker:test": "docker-compose run --rm api npm test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{json,md,yaml}": [
+        "prettier --write",
+        "git add"
+      ],
+      "*.js": [
+        "prettier --write",
+        "eslint",
+        "git add"
+      ]
+    }
+  }
+}
